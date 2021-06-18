@@ -1,5 +1,7 @@
 package portal.api.webflux.portalAPI.chart.service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,27 +22,43 @@ public class DataServiceImpl implements DataService {
 	private DataRepositorySupport rep;
 
 	PopList poplist = new PopList();
+	private final int count = 30;
 
 	@Override
 	public Flux<List<?>> findByData1(DataVO vo) throws Exception {
 
 		List<Randomdata1> list = rep.findByData1(vo);
-		Flux<List<? extends Object>> flux = Flux.just(
-				poplist.popList(new PopInteger(), list, "data1"), 
-				poplist.popList(new PopInteger(), list, "data2")
-			);
+		Collections.reverse(list);
+		List<Randomdata1> newList = new ArrayList<Randomdata1>();
+		try {
+			for (int i = 0; i < count; i++) {
+				newList.add(list.get(i));
+			}
+		} catch (Exception e) {
+		}
+
+		Flux<List<? extends Object>> flux = Flux.just(poplist.popList(new PopInteger(), newList, "data1"),
+				poplist.popList(new PopInteger(), newList, "data2"));
 
 		return flux;
 	}
+
 	@Override
 	public Flux<List<?>> findByData2(DataVO vo) throws Exception {
-		
+
 		List<Randomdata2> list = rep.findByData2(vo);
-		Flux<List<? extends Object>> flux = Flux.just(
-				poplist.popList(new PopInteger(), list, "data1"), 
-				poplist.popList(new PopInteger(), list, "data2")
-				);
-		
+		Collections.reverse(list);
+		List<Randomdata2> newList = new ArrayList<Randomdata2>();
+		try {
+			for (int i = 0; i < count; i++) {
+				newList.add(list.get(i));
+			}
+		} catch (Exception e) {
+		}
+
+		Flux<List<? extends Object>> flux = Flux.just(poplist.popList(new PopInteger(), newList, "data1"),
+				poplist.popList(new PopInteger(), newList, "data2"));
+
 		return flux;
 	}
 }
