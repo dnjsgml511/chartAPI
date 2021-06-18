@@ -25,7 +25,14 @@ public class DataController {
 	// selectbox 可记
 	@GetMapping("/data1.api")
 	public Flux<List<?>> findByData1(DataVO vo) throws Exception {
-		ins_service.insertData();
+		ins_service.insertData1();
 		return service.findByData1(vo);
+	}
+
+	// selectbox 可记
+	@GetMapping("/data2.api")
+	public Flux<List<?>> findByData2(DataVO vo) throws Exception {
+		ins_service.insertData2();
+		return service.findByData2(vo);
 	}
 }

@@ -7,4 +7,5 @@ import reactor.core.publisher.Flux;
 
 public interface DataService {
 	public Flux<List<?>>  findByData1(DataVO vo) throws Exception;
+	public Flux<List<?>>  findByData2(DataVO vo) throws Exception;
 }

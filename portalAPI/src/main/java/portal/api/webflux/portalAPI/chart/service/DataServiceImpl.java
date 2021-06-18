@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import portal.api.webflux.portalAPI.chart.repository.DataRepositorySupport;
 import portal.api.webflux.portalAPI.chart.vo.DataVO;
 import portal.api.webflux.portalAPI.entity.Randomdata1;
+import portal.api.webflux.portalAPI.entity.Randomdata2;
 import portal.api.webflux.portalAPI.util.poplist.PopInteger;
 import portal.api.webflux.portalAPI.util.poplist.PopList;
 import reactor.core.publisher.Flux;
@@ -29,6 +30,17 @@ public class DataServiceImpl implements DataService {
 				poplist.popList(new PopInteger(), list, "data2")
 			);
 
+		return flux;
+	}
+	@Override
+	public Flux<List<?>> findByData2(DataVO vo) throws Exception {
+		
+		List<Randomdata2> list = rep.findByData2(vo);
+		Flux<List<? extends Object>> flux = Flux.just(
+				poplist.popList(new PopInteger(), list, "data1"), 
+				poplist.popList(new PopInteger(), list, "data2")
+				);
+		
 		return flux;
 	}
 }
